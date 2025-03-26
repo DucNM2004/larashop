@@ -15,10 +15,10 @@
 
     <!-- CSS -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" />
-    <link rel="stylesheet" href="{{ asset('public/vendor/font-awesome/css/all.css') }}" />
+    <link rel="stylesheet" href="{{ asset('vendor/font-awesome/css/all.css') }}" />
 
     @yield('css') 
-    <link rel="stylesheet" href="{{ asset('public/css/site.css') }}" />
+    <link rel="stylesheet" href="{{ asset('css/site.css') }}" />
 </head>
 
 <body>

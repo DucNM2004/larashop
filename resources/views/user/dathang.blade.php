@@ -40,6 +40,16 @@
                 </a>
             </div>
             <h2 class="h6 pt-1 pb-3 mb-3 border-bottom">Thông tin giao hàng</h2>
+            @if (session('success'))
+            <div class="alert alert-success mb-3">
+                {{ session('success') }}
+            </div>
+            @endif
+             @if (session('message'))
+             <div class="alert alert-danger mb-3">
+                {{ session('message') }}
+            </div>
+             @endif
             <form method="post" action="{{ route('user.dathang') }}" class="needs-validation" novalidate>
                 @csrf
 

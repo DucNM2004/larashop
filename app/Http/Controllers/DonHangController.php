@@ -9,10 +9,28 @@ use Illuminate\Http\Request;
 
 class DonHangController extends Controller
 {
-    public function getDanhSach()
+    public function getDanhSach(Request $request)
     {
-        $donhang = DonHang::orderBy('created_at', 'desc')->get();
-        return view('admin.donhang.danhsach', compact('donhang'));
+        $query = DonHang::query();
+
+        if ($request->filled('dienthoai')) {
+            $query->where('dienthoaigiaohang', 'like', '%' . $request->dienthoai . '%');
+        }
+
+        if ($request->filled('tinhtrang_id')) {
+            $query->where('tinhtrang_id', $request->tinhtrang_id);
+        }
+
+        $donhang = $query->orderBy('created_at', 'desc')->get();
+        $tinhtrangs = TinhTrang::all(); // Lấy danh sách tình trạng đơn hàng để hiển thị trong ô chọn
+
+        return view('admin.donhang.danhsach', compact('donhang', 'tinhtrangs'));
+    }
+
+    public function getChiTiet($id)
+    {
+        $donhang = DonHang::findOrFail($id);
+        return view('admin.donhang.chitiet', compact('donhang'));
     }
 
     public function getThem()

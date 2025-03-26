@@ -93,13 +93,14 @@ class HangSanXuatController extends Controller
 
     public function getXoa($id)
     {
-        $orm = HangSanXuat::find($id);
+        $orm = HangSanXuat::findOrFail($id);
+        $check = $orm->SanPham()->exists();
+        if($check){
+            return redirect()->route('admin.hangsanxuat')
+                ->with('error', 'Không thể xóa vì có sản phẩm đang thuộc hãng này.');
+        }
         $orm->delete();
-
-        // Xoá hình ảnh khi xóa dữ liệu
         if (!empty($orm->hinhanh)) Storage::delete($orm->hinhanh);
-
-        // Sau khi xóa thành công thì tự động chuyển về trang danh sách
-        return redirect()->route('admin.hangsanxuat');
+        return redirect()->route('admin.hangsanxuat')->with('success', 'xóa thành công');
     }
 }

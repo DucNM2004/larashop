@@ -2,6 +2,16 @@
 @section('content')
 <div class="card">
     <div class="card-header">Loại sản phẩm</div>
+    @if (session('success'))
+            <div class="alert alert-success mb-3">
+                {{ session('success') }}
+            </div>
+        @endif
+    @if (session('error'))
+        <div class="alert alert-danger mb-3">
+            {{ session('error') }}
+        </div>
+        @endif
     <div class="card-body table-responsive">
         <p><a href="{{ route('admin.loaisanpham.them') }}" class="btn btn-info"><i class="fa-light fa-plus"></i> Thêm mới</a></p>
         <table class="table table-bordered table-hover table-sm mb-0">
@@ -20,8 +30,8 @@
                     <td>{{ $loop->iteration }}</td>
                     <td>{{ $value->tenloai }}</td>
                     <td>{{ $value->tenloai_slug }}</td>
-                    <td class="text-center"><a href="{{ route('admin.loaisanpham.sua', ['id' => $value->id]) }}"><i class="fa-light fa-edit">Sửa</i></a></td>
-                    <td class="text-center"><a href="{{ route('admin.loaisanpham.xoa', ['id' => $value->id]) }}" onclick="return confirm('Bạn có muốn xóa loại sản phẩm {{ $value->tenloai }} không?')"><i class="fa-light fa-trash-alt text-danger">Xóa</i></a></td>
+                    <td class="text-center"><a href="{{ route('admin.loaisanpham.sua', ['id' => $value->id]) }}"><i class="fa-light fa-edit"></i></a></td>
+                    <td class="text-center"><a href="{{ route('admin.loaisanpham.xoa', ['id' => $value->id]) }}" onclick="return confirm('Bạn có muốn xóa loại sản phẩm {{ $value->tenloai }} không?')"><i class="fa-light fa-trash-alt text-danger"></i></a></td>
                 </tr>
                 @endforeach
             </tbody>

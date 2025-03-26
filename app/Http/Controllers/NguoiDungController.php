@@ -3,7 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\Models\NguoiDung;
+use Gloudemans\Shoppingcart\Facades\Cart;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Str;
 

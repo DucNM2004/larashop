@@ -30,7 +30,7 @@
                 <div class="d-flex flex-wrap justify-content-between align-items-center pb-4 mt-n1"> 
                     <div class="d-flex align-items-center fs-sm mb-2"> 
                         <a class="blog-entry-meta-link" href="#user"> 
-                            <div class="blog-entry-author-ava"><img src="{{ asset('public/img/03.jpg') }}" /></div> 
+                            <div class="blog-entry-author-ava"><img src="{{ asset('img/03.jpg') }}" /></div> 
                             {{ $baiviet->NguoiDung->name }} 
                         </a> 
                         <span class="blog-entry-meta-divider"></span> 
@@ -59,7 +59,7 @@
                         <h2 class="h4">Bình luận<span class="badge bg-secondary fs-sm text-body align-middle ms-2">{{ $baiviet->BinhLuanBaiViet->count() }}</span></h2> 
                         @foreach($baiviet->BinhLuanBaiViet as $value) 
                             <div class="d-flex align-items-start py-4"> 
-                                <img class="rounded-circle" src="{{ asset('public/img/03.jpg') }}" width="50" /> 
+                                <img class="rounded-circle" src="{{ asset('img/03.jpg') }}" width="50" /> 
                                 <div class="ps-3"> 
                                     <div class="d-flex justify-content-between align-items-center mb-2"> 
                                         <h6 class="fs-md mb-0">{{ $value->NguoiDung->name }}</h6> 
@@ -71,7 +71,7 @@
                         <div class="card border-0 shadow mt-2 mb-4"> 
                             <div class="card-body"> 
                                 <div class="d-flex align-items-start"> 
-                                    <img class="rounded-circle" src="{{ asset('public/img/03.jpg') }}" width="50" /> 
+                                    <img class="rounded-circle" src="{{ asset('img/03.jpg') }}" width="50" /> 
                                     <form class="w-100 needs-validation ms-3" novalidate> 
                                         <div class="mb-3"> 
                                             <textarea class="form-control" rows="3" placeholder="Chia sẻ ý kiến của bạn..." required></textarea> 
@@ -104,7 +104,7 @@
                         ob_end_clean(); 
                         $output = preg_match_all('/<img.+src=[\'"]([^\'"]+)[\'"].*>/i', $strNoiDung, $matches); 
                         if(empty($output)) 
-                            return asset('public/img/noimage.png'); 
+                            return asset('img/noimage.png'); 
                         else 
                             return str_replace('&amp;', '&', $matches[1][0]); 
                     } 

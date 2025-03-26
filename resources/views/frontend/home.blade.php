@@ -14,7 +14,7 @@
                     <a class="btn btn-accent" href="#">Xem chi tiết<i class="ci-arrow-right fs-ms ms-1"></i></a>
                 </div>
             </div>
-            <div class="col-md-7"><img src="{{ asset('public/img/Internet-FPT-goi-cuoc-cap-quang-wifi-sieu-toc.jpg') }}" /></div>
+            <div class="col-md-7"><img src="{{ asset('img/Internet-FPT-goi-cuoc-cap-quang-wifi-sieu-toc.jpg') }}" /></div>
         </div>
     </div>
 </section>
@@ -23,42 +23,42 @@
         <div class="tns-carousel-inner" data-carousel-options="{ &quot;nav&quot;: false, &quot;controls&quot;: false, &quot;autoplay&quot;: true, &quot;autoplayTimeout&quot;: 4000, &quot;loop&quot;: true, &quot;responsive&quot;: {&quot;0&quot;:{&quot;items&quot;:1},&quot;360&quot;:{&quot;items&quot;:2},&quot;600&quot;:{&quot;items&quot;:3},&quot;991&quot;:{&quot;items&quot;:4},&quot;1200&quot;:{&quot;items&quot;:4}} }">
             <div>
                 <a class="d-block bg-white border py-4 py-sm-5 px-2" href="#" style="margin-right:-.0625rem;">
-                    <img class="d-block mx-auto" src="{{ asset('public/img/brands/31.png') }}" style="width:125px;" />
+                    <img class="d-block mx-auto" src="{{ asset('img/brands/31.png') }}" style="width:125px;" />
                 </a>
             </div>
             <div>
                 <a class="d-block bg-white border py-4 py-sm-5 px-2" href="#" style="margin-right:-.0625rem;">
-                    <img class="d-block mx-auto" src="{{ asset('public/img/brands/32.png') }}" style="width:150px;" />
+                    <img class="d-block mx-auto" src="{{ asset('img/brands/32.png') }}" style="width:150px;" />
                 </a>
             </div>
             <div>
                 <a class="d-block bg-white border py-4 py-sm-5 px-2" href="#" style="margin-right:-.0625rem;">
-                    <img class="d-block mx-auto" src="{{ asset('public/img/brands/33.png') }}" style="width:173px;" />
+                    <img class="d-block mx-auto" src="{{ asset('img/brands/33.png') }}" style="width:173px;" />
                 </a>
             </div>
             <div>
                 <a class="d-block bg-white border py-4 py-sm-5 px-2" href="#" style="margin-right:-.0625rem;">
-                    <img class="d-block mx-auto" src="{{ asset('public/img/brands/34.png') }}" style="width:128px;" />
+                    <img class="d-block mx-auto" src="{{ asset('img/brands/34.png') }}" style="width:128px;" />
                 </a>
             </div>
             <div>
                 <a class="d-block bg-white border py-4 py-sm-5 px-2" href="#" style="margin-right:-.0625rem;">
-                    <img class="d-block mx-auto" src="{{ asset('public/img/brands/35.png') }}" style="width:86px;" />
+                    <img class="d-block mx-auto" src="{{ asset('img/brands/35.png') }}" style="width:86px;" />
                 </a>
             </div>
             <div>
                 <a class="d-block bg-white border py-4 py-sm-5 px-2" href="#" style="margin-right:-.0625rem;">
-                    <img class="d-block mx-auto" src="{{ asset('public/img/brands/18.png') }}" style="width:165px;" />
+                    <img class="d-block mx-auto" src="{{ asset('img/brands/18.png') }}" style="width:165px;" />
                 </a>
             </div>
             <div>
                 <a class="d-block bg-white border py-4 py-sm-5 px-2" href="#" style="margin-right:-.0625rem;">
-                    <img class="d-block mx-auto" src="{{ asset('public/img/brands/19.png') }}" style="width:165px;" />
+                    <img class="d-block mx-auto" src="{{ asset('img/brands/19.png') }}" style="width:165px;" />
                 </a>
             </div>
             <div>
                 <a class="d-block bg-white border py-4 py-sm-5 px-2" href="#" style="margin-right:-.0625rem;">
-                    <img class="d-block mx-auto" src="{{ asset('public/img/brands/20.png') }}" style="width:165px;" />
+                    <img class="d-block mx-auto" src="{{ asset('img/brands/20.png') }}" style="width:165px;" />
                 </a>
             </div>
         </div>

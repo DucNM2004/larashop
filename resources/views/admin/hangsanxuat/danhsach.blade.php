@@ -2,6 +2,16 @@
 @section('content')
 <div class="card">
     <div class="card-header">Hãng sản xuất</div>
+    @if (session('success'))
+            <div class="alert alert-success mb-3">
+                {{ session('success') }}
+            </div>
+        @endif
+    @if (session('error'))
+        <div class="alert alert-danger mb-3">
+            {{ session('error') }}
+        </div>
+        @endif
     <div class="card-body table-responsive">
         <p><a href="{{ route('admin.hangsanxuat.them') }}" class="btn btn-info"><i class="fa-light fa-plus"></i> Thêm mới</a>
             <a href="#nhap" class="btn btn-warning" data-bs-toggle="modal" data-bs-target="#importModal"><i class="fa-light fa-upload"></i> Nhập từ Excel</a>
@@ -25,8 +35,8 @@
                     <td class="text-center"><img src="{{ asset('storage/app/private/'. $value->hinhanh) }}" width="100" class="img-thumbnail" /></td>
                     <td>{{ $value->tenhang }}</td>
                     <td>{{ $value->tenhang_slug }}</td>
-                    <td class="text-center"><a href="{{ route('admin.hangsanxuat.sua', ['id' => $value->id]) }}"><i class="fa-light fa-edit">Sửa</i></a></td>
-                    <td class="text-center"><a href="{{ route('admin.hangsanxuat.xoa', ['id' => $value->id]) }}" onclick="return confirm('Bạn có muốn xóa hãng sản xuất {{ $value->tenhang }} không?')"><i class="fa-light fa-trash-alt text-danger">Xóa</i></a></td>
+                    <td class="text-center"><a href="{{ route('admin.hangsanxuat.sua', ['id' => $value->id]) }}"><i class="fa-light fa-edit"></i></a></td>
+                    <td class="text-center"><a href="{{ route('admin.hangsanxuat.xoa', ['id' => $value->id]) }}" onclick="return confirm('Bạn có muốn xóa hãng sản xuất {{ $value->tenhang }} không?')"><i class="fa-light fa-trash-alt text-danger"></i></a></td>
                 </tr>
                 @endforeach
             </tbody>

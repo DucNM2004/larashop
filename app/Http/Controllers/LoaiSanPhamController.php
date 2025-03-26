@@ -59,9 +59,13 @@ class LoaiSanPhamController extends Controller
 
     public function getXoa($id)
     {
-        $orm = LoaiSanPham::find($id);
+        $orm = LoaiSanPham::findOrFail($id);
+        $check = $orm->SanPham()->exists();
+        if($check){
+            return redirect()->route('admin.loaisanpham')
+                ->with('error', 'Không thể xóa Loại sản phẩm vì có sản phẩm đang thuộc loại này.');
+        }
         $orm->delete();
-
-        return redirect()->route('admin.loaisanpham');
+        return redirect()->route('admin.loaisanpham')->with('success', 'xóa thành công');
     }
 }

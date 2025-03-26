@@ -5,11 +5,14 @@ namespace App\Http\Controllers;
 use App\Models\NguoiDung;
 use App\Models\DonHang;
 use App\Models\DonHang_ChiTiet;
+use App\Models\SanPham;
+use App\Models\TinhTrang;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Gloudemans\Shoppingcart\Facades\Cart;
+use Illuminate\Support\Facades\DB;
 
 class KhachHangController extends Controller
 {
@@ -28,35 +31,91 @@ class KhachHangController extends Controller
         else
             return redirect()->route('user.dangnhap');
     }
-
     public function postDatHang(Request $request)
-    {
-        // Kiểm tra
-        $this->validate($request, [
-            'diachigiaohang' => ['required', 'string', 'max:255'],
-            'dienthoaigiaohang' => ['required', 'string', 'max:255'],
-        ]);
+{
+    if (Cart::count() == 0) {
+        return back()->withErrors(['message' => 'Giỏ hàng của bạn đang trống!']);
+    }
 
-        // Lưu vào đơn hàng
+    $request->validate([
+        'diachigiaohang' => ['required', 'string', 'max:255'],
+        'dienthoaigiaohang' => ['required', 'string', 'max:255'],
+    ]);
+
+    DB::beginTransaction();
+
+    try {
+        // Lấy tình trạng mặc định
+        $tinhTrangMacDinh = TinhTrang::where('is_default', true)->first();
+
+        if (!$tinhTrangMacDinh) {
+            return back()->withErrors(['message' => 'Không tìm thấy tình trạng mặc định!']);
+        }
+
+        // Tạo đơn hàng mới
         $dh = new DonHang();
-        $dh->nguoidung_id = Auth::user()->id;
-        $dh->tinhtrang_id = 1; // Đơn hàng mới
+        $dh->nguoidung_id = Auth::id();
+        $dh->tinhtrang_id = $tinhTrangMacDinh->id; // Gán tình trạng mặc định
         $dh->diachigiaohang = $request->diachigiaohang;
         $dh->dienthoaigiaohang = $request->dienthoaigiaohang;
         $dh->save();
 
-        // Lưu vào đơn hàng chi tiết
         foreach (Cart::content() as $value) {
-            $ct = new DonHang_ChiTiet();
-            $ct->donhang_id = $dh->id;
-            $ct->sanpham_id = $value->id;
-            $ct->soluongban = $value->qty;
-            $ct->dongiaban = $value->price;
-            $ct->save();
+            $sanpham = SanPham::find($value->id);
+            if (!$sanpham || $sanpham->soluong < $value->qty) {
+                DB::rollBack();
+                return back()->withErrors(['message' => "Sản phẩm {$sanpham->tensanpham} không đủ số lượng tồn kho!"]);
+            }
+
+            DonHang_ChiTiet::create([
+                'donhang_id' => $dh->id,
+                'sanpham_id' => $sanpham->id,
+                'soluongban' => $value->qty,
+                'dongiaban' => $value->price,
+            ]);
+
+            $sanpham->decrement('soluong', $value->qty);
         }
 
-        return redirect()->route('user.dathangthanhcong');
+        Cart::destroy();
+        DB::commit();
+
+        return redirect()->route('user.dathangthanhcong')->with('success', 'Đặt hàng thành công!');
+    } catch (\Exception $e) {
+        DB::rollBack();
+        return back()->withErrors(['message' => 'Đã xảy ra lỗi khi đặt hàng, vui lòng thử lại!']);
     }
+}
+
+
+    // public function postDatHang(Request $request)
+    // {
+    //     // Kiểm tra
+    //     $this->validate($request, [
+    //         'diachigiaohang' => ['required', 'string', 'max:255'],
+    //         'dienthoaigiaohang' => ['required', 'string', 'max:255'],
+    //     ]);
+
+    //     // Lưu vào đơn hàng
+    //     $dh = new DonHang();
+    //     $dh->nguoidung_id = Auth::user()->id;
+    //     $dh->tinhtrang_id = 1; // Đơn hàng mới
+    //     $dh->diachigiaohang = $request->diachigiaohang;
+    //     $dh->dienthoaigiaohang = $request->dienthoaigiaohang;
+    //     $dh->save();
+
+    //     // Lưu vào đơn hàng chi tiết
+    //     foreach (Cart::content() as $value) {
+    //         $ct = new DonHang_ChiTiet();
+    //         $ct->donhang_id = $dh->id;
+    //         $ct->sanpham_id = $value->id;
+    //         $ct->soluongban = $value->qty;
+    //         $ct->dongiaban = $value->price;
+    //         $ct->save();
+    //     }
+
+    //     return redirect()->route('user.dathangthanhcong');
+    // }
 
     public function getDatHangThanhCong()
     {

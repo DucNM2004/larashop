@@ -1,7 +1,23 @@
 @extends('layouts.app')
 @section('content')
+
 <div class="card">
-    <div class="card-header">Đơn hàng</div>
+    <div class="card-header">
+        Đơn hàng
+        <form action="{{ route('admin.donhang') }}" method="GET" class="d-flex">
+            <input type="text" name="dienthoai" class="form-control me-2" placeholder="Nhập số điện thoại..." value="{{ request('dienthoai') }}">
+            <select name="tinhtrang_id" class="form-control me-2">
+                <option value="">-- Tất cả trạng thái --</option>
+                @foreach($tinhtrangs as $tinhtrang)
+                    <option value="{{ $tinhtrang->id }}" {{ request('tinhtrang_id') == $tinhtrang->id ? 'selected' : '' }}>
+                        {{ $tinhtrang->tinhtrang }}
+                    </option>
+                @endforeach
+            </select>
+            <button type="submit" class="btn btn-primary">Tìm kiếm</button>
+        </form>
+    </div>
+
     <div class="card-body table-responsive">
         <table class="table table-bordered table-hover table-sm mb-0">
             <thead>
@@ -23,44 +39,52 @@
                     <td>
                         <span class="d-block">Điện thoại: <strong>{{ $value->dienthoaigiaohang }}</strong></span>
                         <span class="d-block">Địa chỉ: <strong>{{ $value->diachigiaohang }}</strong></span>
-                        <span class="d-block">Sản phẩm:</span>
-                        <table class="table table-bordered table-hover table-sm mb-0">
-                            <thead>
-                                <tr>
-                                    <th width="5%">#</th>
-                                    <th>Sản phẩm</th>
-                                    <th width="5%">SL</th>
-                                    <th width="15%">Đơn giá</th>
-                                    <th width="20%">Thành tiền</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                @php $tongtien = 0; @endphp
-                                @foreach($value->DonHang_ChiTiet as $chitiet)
-                                <tr>
-                                    <td>{{ $loop->iteration }}</td>
-                                    <td>{{ $chitiet->SanPham->tensanpham }}</td>
-                                    <td>{{ $chitiet->soluongban }}</td>
-                                    <td class="text-end">{{ number_format($chitiet->dongiaban) }}<sup><u>đ</u></sup></td>
-                                    <td class="text-end">{{ number_format($chitiet->soluongban * $chitiet->dongiaban) }}<sup><u>đ</u></sup></td>
-                                </tr>
-                                @php $tongtien += $chitiet->soluongban * $chitiet->dongiaban; @endphp
-                                @endforeach
-                                <tr>
-                                    <td colspan="4">Tổng tiền sản phẩm:</td>
-                                    <td class="text-end"><strong>{{ number_format($tongtien) }}</strong><sup><u>đ</u></sup></td>
-                                </tr>
-                            </tbody>
-                        </table>
                     </td>
                     <td>{{ $value->created_at->format('d/m/Y H:i:s') }}</td>
                     <td>{{ $value->TinhTrang->tinhtrang }}</td>
-                    <td class="text-center"><a href="{{ route('admin.donhang.sua', ['id' => $value->id]) }}"><i class="fa-light fa-edit"></i></a></td>
-                    <td class="text-center"><a href="{{ route('admin.donhang.xoa', ['id' => $value->id]) }}" onclick="return confirm('Bạn có muốn xóa đơn hàng của khách {{ $value->Nguoidung->name }} không?')"><i class="fa-light fa-trash-alt text-danger"></i></a></td>
+                    <td class="text-center">
+                        <a href="#" class="btn btn-sm btn-primary" data-bs-toggle="modal" data-bs-target="#orderDetailModal" onclick="loadOrderDetail({{ $value->id }})">
+                            <i class="fa-light fa-edit"></i>
+                        </a>
+                    </td>
+                    <td class="text-center">
+                        <a href="{{ route('admin.donhang.xoa', ['id' => $value->id]) }}" onclick="return confirm('Bạn có muốn xóa đơn hàng này không?')">
+                            <i class="fa-light fa-trash-alt text-danger"></i>
+                        </a>
+                    </td>
                 </tr>
                 @endforeach
             </tbody>
         </table>
     </div>
 </div>
+
+<!-- Modal hiển thị chi tiết đơn hàng -->
+<div class="modal fade" id="orderDetailModal" tabindex="-1" aria-labelledby="orderDetailModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="orderDetailModalLabel">Chi tiết đơn hàng</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <div id="orderDetailContent">Đang tải...</div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- AJAX để tải chi tiết đơn hàng -->
+<script>
+    function loadOrderDetail(orderId) {
+        let url = "{{ route('admin.donhang.chitiet', ':id') }}".replace(':id', orderId);
+        fetch(url)
+            .then(response => response.text())
+            .then(data => {
+                document.getElementById('orderDetailContent').innerHTML = data;
+            })
+            .catch(error => console.error('Lỗi khi tải chi tiết đơn hàng:', error));
+    }
+</script>
+
 @endsection

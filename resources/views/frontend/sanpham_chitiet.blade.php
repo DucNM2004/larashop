@@ -37,7 +37,7 @@
                             </a>
                         </div>
                         <div class="mb-3">
-									<span class="h3 fw-normal text-accent me-1">1.300.000<small>đ</small></span>
+									<span class="h3 fw-normal text-accent me-1">{{ number_format($sanPham->dongia, 0, ',', '.') }}<small>đ</small></span>
 							</div>
                         <form class="mb-grid-gutter" method="post">
                             <div class="mb-3 d-flex align-items-center">
@@ -100,7 +100,7 @@
     <div class="row align-items-center py-md-3">
         <div class="col-12 py-4">
             <h2 class="h3 mb-4 pb-2">Giới thiệu chi tiết sản phẩm</h2>
-            <p class="text-muted pb-2" style="text-align:justify">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Duis aute irure dolor in reprehenderit.</p>
+            <p class="text-muted pb-2" style="text-align:justify">{{$sanPham->motasanpham}}.</p>
         </div>
     </div>
 </div>

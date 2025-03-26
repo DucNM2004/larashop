@@ -8,6 +8,12 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 class DonHang_ChiTiet extends Model
 {
     protected $table = 'donhang_chitiet';
+    protected $fillable = [
+        'donhang_id',
+        'sanpham_id',
+        'soluongban',
+        'dongiaban'
+    ];
 
     public function DonHang(): BelongsTo
     {

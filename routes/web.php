@@ -110,7 +110,8 @@ Route::prefix('admin')->name('admin.')->group(function () {
     // Quản lý Tình trạng
     Route::get('/tinhtrang', [TinhTrangController::class, 'getDanhSach'])->name('tinhtrang');
     Route::get('/tinhtrang/them', [TinhTrangController::class, 'getThem'])->name('tinhtrang.them');
-    Route::post('/tinhtrang/them', [TinhTrangController::class, 'postThem'])->name('tinhtrang.them');
+    Route::post('/tinhtrang/luutru', [TinhTrangController::class, 'postThem'])->name('tinhtrang.luutru');
+    Route::post('/admin/tinhtrang/update-default', [TinhTrangController::class, 'updateDefault'])->name('tinhtrang.update-default');
     Route::get('/tinhtrang/sua/{id}', [TinhTrangController::class, 'getSua'])->name('tinhtrang.sua');
     Route::post('/tinhtrang/sua/{id}', [TinhTrangController::class, 'postSua'])->name('tinhtrang.sua');
     Route::get('/tinhtrang/xoa/{id}', [TinhTrangController::class, 'getXoa'])->name('tinhtrang.xoa');
@@ -118,6 +119,7 @@ Route::prefix('admin')->name('admin.')->group(function () {
     Route::get('/donhang', [DonHangController::class, 'getDanhSach'])->name('donhang');
     Route::get('/donhang/them', [DonHangController::class, 'getThem'])->name('donhang.them');
     Route::post('/donhang/them', [DonHangController::class, 'postThem'])->name('donhang.them');
+    Route::get('/donhang/chitiet/{id}', [DonHangController::class, 'getChiTiet'])->name('donhang.chitiet');
     Route::get('/donhang/sua/{id}', [DonHangController::class, 'getSua'])->name('donhang.sua');
     Route::post('/donhang/sua/{id}', [DonHangController::class, 'postSua'])->name('donhang.sua');
     Route::get('/donhang/xoa/{id}', [DonHangController::class, 'getXoa'])->name('donhang.xoa');

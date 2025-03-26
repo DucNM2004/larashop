@@ -10,7 +10,7 @@
                 <a class="card-img-top d-block overflow-hidden" href="#">
                      <!-- Tạo floder rồi để hình dô vào floder-->
                     <!-- lấy đường dẫn ảnh từ database (floder) vscode thì chọn dô hình chuột phải chọn  Copy Ralative Path -->
-                    <img src="{{ asset('public\img\u-oa-meo-dau-roi.jpg') }}" />
+                    <img src="{{ asset('img/u-oa-meo-dau-roi.jpg') }}" />
                 </a>
                 <div class="card-body py-2">
                     <a class="product-meta d-block fs-xs pb-1" href="#">Iphone 7 128 GB</a>
@@ -43,7 +43,7 @@
         <div class="col-lg-3 col-md-4 col-sm-6 px-2 mb-4">
             <div class="card product-card">
                 <a class="card-img-top d-block overflow-hidden" href="#">
-                    <img src="{{ asset('public\img\dien-thoai\iphone-12-pro-max-256gb-190320-020344-400x400.jpg') }}" />
+                    <img src="{{ Storage::url('dien-thoai/iphone-12-pro-max-256gb-190320-020344-400x400.jpg') }}" />
                 </a>
                 <div class="card-body py-2">
                     <a class="product-meta d-block fs-xs pb-1" href="#">Iphone 12 Pro Max 256 GB</a>
